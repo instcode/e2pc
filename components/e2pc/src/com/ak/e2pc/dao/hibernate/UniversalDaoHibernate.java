@@ -14,8 +14,6 @@ import com.ak.e2pc.dao.UniversalDao;
  * This class serves as the a class that can CRUD any object witout any
  * Spring configuration. The only downside is it does require casting
  * from Object to the object class.
- *
- * @author Bryan Noll
  */
 public class UniversalDaoHibernate extends HibernateDaoSupport implements UniversalDao {
     /**

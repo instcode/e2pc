@@ -12,7 +12,6 @@ import com.ak.e2pc.model.User;
 /**
  * User Data Access Object (GenericDao) interface.
  *
- * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public interface UserDao extends GenericDao<User, Long> {
 

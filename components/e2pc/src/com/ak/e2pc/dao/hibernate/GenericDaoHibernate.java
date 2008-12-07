@@ -27,10 +27,6 @@ import com.ak.e2pc.dao.GenericDao;
  *          &lt;property name="sessionFactory" ref="sessionFactory"/&gt;
  *      &lt;/bean&gt;
  * </pre>
- *
- * @author <a href="mailto:bwnoll@gmail.com">Bryan Noll</a>
- * @param <T> a type variable
- * @param <PK> the primary key for that type
  */
 public class GenericDaoHibernate<T, PK extends Serializable> extends HibernateDaoSupport implements GenericDao<T, PK> {
     /**

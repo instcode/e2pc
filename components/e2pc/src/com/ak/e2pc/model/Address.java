@@ -12,7 +12,6 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * This class is used to represent an address with address,
  * city, province and postal-code information.
  *
- * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 @Embeddable
 public class Address extends BaseObject implements Serializable {

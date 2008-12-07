@@ -39,9 +39,6 @@ import com.ak.e2pc.service.GenericManager;
  *     &lt;/bean&gt;
  * </pre>
  *
- * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @param <T> a type variable
- * @param <PK> the primary key for that type
  */
 public class GenericManagerImpl<T, PK extends Serializable> implements GenericManager<T, PK> {
     /**

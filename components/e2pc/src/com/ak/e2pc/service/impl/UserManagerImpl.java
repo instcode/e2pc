@@ -19,8 +19,6 @@ import com.ak.e2pc.service.UserService;
 
 /**
  * Implementation of UserManager interface.
- *
- * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 @WebService(serviceName = "UserService", endpointInterface = "com.mycompany.app.service.UserService")
 public class UserManagerImpl extends UniversalManagerImpl implements UserManager, UserService {

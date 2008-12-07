@@ -11,9 +11,6 @@ import java.util.Map;
  * <p>Extend this interface if you want typesafe (no casting necessary) DAO's for your
  * domain objects.
  *
- * @author <a href="mailto:bwnoll@gmail.com">Bryan Noll</a>
- * @param <T> a type variable
- * @param <PK> the primary key for that type
  */
 public interface GenericDao <T, PK extends Serializable> {
 

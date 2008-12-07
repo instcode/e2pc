@@ -9,8 +9,6 @@ import com.ak.e2pc.model.Role;
 /**
  * This class interacts with Spring's HibernateTemplate to save/delete and
  * retrieve Role objects.
- *
- * @author <a href="mailto:bwnoll@gmail.com">Bryan Noll</a> 
  */
 public class RoleDaoHibernate extends GenericDaoHibernate<Role, Long> implements RoleDao {
 

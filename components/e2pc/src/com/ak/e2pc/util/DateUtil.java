@@ -19,9 +19,6 @@ import com.ak.e2pc.Constants;
 /**
  * Date Utility Class used to convert Strings to Dates and Timestamps
  * 
- * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
- *  to correct time pattern. Minutes should be mm not MM (MM is month). 
  */
 public class DateUtil {
     private static Log log = LogFactory.getLog(DateUtil.class);

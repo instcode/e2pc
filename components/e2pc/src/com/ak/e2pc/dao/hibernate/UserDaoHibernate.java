@@ -17,12 +17,6 @@ import com.ak.e2pc.model.User;
 /**
  * This class interacts with Spring's HibernateTemplate to save/delete and
  * retrieve User objects.
- *
- * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- *   Modified by <a href="mailto:dan@getrolling.com">Dan Kibler</a>
- *   Extended to implement Acegi UserDetailsService interface by David Carter david@carter.net
- *   Modified by <a href="mailto:bwnoll@gmail.com">Bryan Noll</a> to work with 
- *   the new BaseDaoHibernate implementation that uses generics.
 */
 public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements UserDao, UserDetailsService {
 
