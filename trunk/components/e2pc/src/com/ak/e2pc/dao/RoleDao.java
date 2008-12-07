@@ -5,8 +5,6 @@ import com.ak.e2pc.model.Role;
 
 /**
  * Role Data Access Object (DAO) interface.
- *
- * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public interface RoleDao extends GenericDao<Role, Long> {
     /**

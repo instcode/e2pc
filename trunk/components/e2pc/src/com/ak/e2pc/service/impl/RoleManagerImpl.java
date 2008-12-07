@@ -9,7 +9,6 @@ import com.ak.e2pc.service.RoleManager;
 /**
  * Implementation of RoleManager interface.
  * 
- * @author <a href="mailto:dan@getrolling.com">Dan Kibler</a>
  */
 public class RoleManagerImpl extends UniversalManagerImpl implements RoleManager {
     private RoleDao dao;

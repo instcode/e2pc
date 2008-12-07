@@ -15,7 +15,6 @@ import org.apache.commons.lang.StringUtils;
  * This class is converts a java.util.Date to a String
  * and a String to a java.util.Date.
  * 
- * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class DateConverter implements Converter {
 

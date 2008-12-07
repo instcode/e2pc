@@ -12,7 +12,6 @@ import com.ak.e2pc.service.LookupManager;
 /**
  * Implementation of LookupManager interface to talk to the persistence layer.
  *
- * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class LookupManagerImpl extends UniversalManagerImpl implements LookupManager {
     private LookupDao dao;

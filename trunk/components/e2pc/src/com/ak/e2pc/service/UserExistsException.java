@@ -6,7 +6,6 @@ package com.ak.e2pc.service;
  * constraint violations.  This is used to wrap Spring's 
  * DataIntegrityViolationException so it's checked in the web layer.
  *
- * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class UserExistsException extends Exception {
     private static final long serialVersionUID = 4050482305178810162L;

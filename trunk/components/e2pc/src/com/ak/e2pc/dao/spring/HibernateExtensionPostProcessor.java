@@ -41,8 +41,6 @@ import java.util.Properties;
  * new Spring configuration file and the new persistent classes will be added to the list already defined for the
  * session factory bean configured within the standard appfuse-hibernate.jar file. And all this without needing to
  * touch the original AppFuse configuration files!
- *
- * @author Michael Horwitz
  */
 public class HibernateExtensionPostProcessor implements BeanFactoryPostProcessor {
     private String sessionFactoryBeanName = "sessionFactory";

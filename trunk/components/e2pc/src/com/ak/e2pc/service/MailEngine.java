@@ -21,7 +21,6 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
  * Class for sending e-mail messages based on Velocity templates
  * or with attachments.
  * 
- * @author Matt Raible
  */
 public class MailEngine {
     private final Log log = LogFactory.getLog(MailEngine.class);

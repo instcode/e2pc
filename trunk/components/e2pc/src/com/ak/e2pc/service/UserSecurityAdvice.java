@@ -27,7 +27,6 @@ import com.ak.e2pc.model.User;
  * This advice is responsible for enforcing security and only allowing administrators
  * to modify users. Users are allowed to modify themselves.
  *
- * @author mraible
  */
 public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdvice {
     /**

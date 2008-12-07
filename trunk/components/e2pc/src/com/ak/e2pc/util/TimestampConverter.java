@@ -11,8 +11,6 @@ import org.apache.commons.lang.StringUtils;
  * This class is converts a java.util.Date to a String and a String to a
  * java.util.Date for use as a Timestamp. It is used by BeanUtils when copying
  * properties.
- * 
- * @author <a href="mailto:dan@getrolling.com">Dan Kibler</a>
  */
 public class TimestampConverter extends DateConverter {
     /**
