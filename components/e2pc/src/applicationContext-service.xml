@@ -97,7 +97,7 @@
         <property name="lookupDao" ref="lookupDao"/>
     </bean>
 
-    <bean id="userManager" class="ccom.ak.e2pc.service.impl.UserManagerImpl">
+    <bean id="userManager" class="com.ak.e2pc.service.impl.UserManagerImpl">
         <property name="userDao" ref="userDao"/>
         <property name="passwordEncoder" ref="passwordEncoder"/>
     </bean>
