@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<mx:Panel
+    title="Login"
+    horizontalAlign="center"
+    verticalGap="0"
+    paddingTop="8"
+    paddingBottom="8"
+    xmlns:mx="http://www.adobe.com/2006/mxml" height="210" width="320">
+
+    <mx:Script>
+    <![CDATA[
+        [Bindable] 
+        public var onCredentialsSet:Function = null;
+        [Bindable]
+        public var loginMessage:String = "";
+        [Bindable]
+        public var loggedIn:Boolean = false;
+    ]]> 
+    </mx:Script>
+
+    <mx:Text text="(Type in user/user or admin/admin)" textAlign="center"/>
+
+    <mx:Form>
+        <mx:FormItem label="Username">
+            <mx:TextInput id="username"/>
+        </mx:FormItem>
+        <mx:FormItem label="Password">
+            <mx:TextInput id="password" displayAsPassword="true"
+                enter="onCredentialsSet(username.text, password.text)"/>
+        </mx:FormItem>
+    </mx:Form>
+
+    <mx:Text text="{loginMessage}" textAlign="center"/>
+
+    
+    <mx:ControlBar horizontalAlign="center">
+      <mx:Button label="Login" click="onCredentialsSet(username.text, password.text)"/> 
+    </mx:ControlBar>
+</mx:Panel>
