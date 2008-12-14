@@ -23,19 +23,15 @@
                         </roles>
                     </security-constraint>
                 </security>
-
 			</destination>			
 		</service>		        
     </services>
 
     <channels>
-
         <channel-definition id="my-graniteamf" class="mx.messaging.channels.AMFChannel">
             <endpoint uri="http://{server.name}:{server.port}/{context.root}/graniteamf/amf" class="flex.messaging.endpoints.AMFEndpoint"/>
         </channel-definition>
-
     </channels>
-
 
     <factories>
     	<factory id="springFactory" class="org.granite.messaging.service.SpringServiceFactory"/>
