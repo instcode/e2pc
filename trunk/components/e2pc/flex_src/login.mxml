@@ -20,8 +20,6 @@
     ]]> 
     </mx:Script>
 
-    <mx:Text text="(Type in user/user or admin/admin)" textAlign="center"/>
-
     <mx:Form>
         <mx:FormItem label="Username">
             <mx:TextInput id="username"/>
@@ -34,7 +32,6 @@
 
     <mx:Text text="{loginMessage}" textAlign="center"/>
 
-    
     <mx:ControlBar horizontalAlign="center">
       <mx:Button label="Login" click="onCredentialsSet(username.text, password.text)"/> 
     </mx:ControlBar>
