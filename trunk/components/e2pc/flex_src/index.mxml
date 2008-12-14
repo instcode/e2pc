@@ -24,9 +24,9 @@
             public var remoteClassMsg:String = "";
 
             public function init():void {
-                srv = new SecureRemoteObject("login"); 
+                srv = new SecureRemoteObject("login");
                 srv.addEventListener(FaultEvent.FAULT, onRemoteFault);
-                srv.addEventListener(SecurityEvent.ALL, onSecurityEvent);                            
+                srv.addEventListener(SecurityEvent.ALL, onSecurityEvent);
                 srv.showBusyCursor = true;
             }
             
@@ -64,8 +64,11 @@
             }
 
             public function onCredentialsSet(username:String, password:String):void {
-                srv.logout();
-                srv.setCredentials(username, password);                           
+            	if (loginView.loggedIn) {
+                	doLogout();
+             	}
+                srv.setCredentials(username, password);
+                getUserStuff();
             }
             
             public function doLogout():void {
