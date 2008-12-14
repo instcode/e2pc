@@ -18,7 +18,7 @@ import java.util.Set;
  *
  */
 @Entity
-@Table(name="app_user")
+@Table(name="e2pc_user")
 public class User extends BaseObject implements Serializable, UserDetails {
     private static final long serialVersionUID = 3832626162173359411L;
 
