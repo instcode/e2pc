@@ -34,6 +34,11 @@
                 loginView.loggedIn = true;
                 remoteClassMsg = event.result.toString();
             }
+            
+            public function onAdminDataResult(event:ResultEvent):void {
+                loginView.loggedIn = true;
+                remoteClassMsg = event.result.toString();
+            }
 
             public function onSecurityEvent(event:SecurityEvent):void {
                 trace("onSecurityEvent: " + event);
@@ -61,7 +66,6 @@
             public function onCredentialsSet(username:String, password:String):void {
                 srv.logout();
                 srv.setCredentials(username, password);                           
-                this.getUserStuff();                            
             }
             
             public function doLogout():void {
@@ -82,6 +86,14 @@
                 operation.addEventListener(ResultEvent.RESULT, onUserDataResult);
                 srv.operations = {getUserData: operation};
                 srv.getUserData();
+            }
+            
+            private function getAdminStuff():void {
+                var operation:Operation = new Operation();
+                operation.name = "getAdminData";
+                operation.addEventListener(ResultEvent.RESULT, onAdminDataResult);
+                srv.operations = {getAdminData: operation};
+                srv.getAdminData();
             }
         ]]>
     </mx:Script>
