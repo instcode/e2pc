@@ -3,7 +3,7 @@
 
 <hibernate-configuration>
     <session-factory>
-        <mapping class="com.ak.e2pc.model.User"/>
-        <mapping class="com.ak.e2pc.model.Role"/>
+        <mapping class="com.rstn.e2pc.model.User"/>
+        <mapping class="com.rstn.e2pc.model.Role"/>
     </session-factory>
 </hibernate-configuration>
