@@ -38,10 +38,18 @@
         url="ldap://localhost:10389"
         manager-dn="uid=admin,ou=system" manager-password="secret" />
 
-	<ldap-authentication-provider
+	<!-- ldap-authentication-provider
 		user-search-filter="uid={0}" user-search-base="dc=example,dc=com"
         group-search-filter="member={0}" group-search-base="ou=people,ou=groups"
-	/>
+        role-prefix="ROLE_"
+	/ -->
+	
+	<authentication-provider>
+        <password-encoder hash="{sha}" />
+        <ldap-user-service server-ref="ldapServer"
+            user-search-filter="uid={0}" user-search-base="dc=example,dc=com"
+            group-search-filter="member={0}" group-search-base="ou=people,ou=groups"/>
+    </authentication-provider>
 	
 	<!-- Open Directory Service -->
 	<!-- 

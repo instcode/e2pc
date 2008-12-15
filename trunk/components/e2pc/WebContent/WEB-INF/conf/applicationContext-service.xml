@@ -39,12 +39,12 @@
         </tx:attributes>
     </tx:advice>
     
-    <bean id="userSecurityAdvice" class="com.ak.e2pc.service.UserSecurityAdvice"/>
+    <bean id="userSecurityAdvice" class="com.rstn.e2pc.service.UserSecurityAdvice"/>
     
     <!-- =================================================================== -->
     <!-- Mail: Sender and Velocity configuration                             -->
     <!-- =================================================================== -->
-    <bean id="mailEngine" class="com.ak.e2pc.service.MailEngine">
+    <bean id="mailEngine" class="com.rstn.e2pc.service.MailEngine">
         <property name="mailSender" ref="mailSender"/>
         <property name="velocityEngine" ref="velocityEngine"/>
         <property name="from" value="${mail.default.from}"/>
@@ -89,20 +89,20 @@
     <!-- =================================================================== -->
     <!-- Managers: For accessing DAOs                                        -->
     <!-- =================================================================== -->
-    <bean id="manager" class="com.ak.e2pc.service.impl.UniversalManagerImpl">
+    <bean id="manager" class="com.rstn.e2pc.service.impl.UniversalManagerImpl">
         <property name="dao" ref="universalDao"/>
     </bean>
     
-    <bean id="lookupManager" class="com.ak.e2pc.service.impl.LookupManagerImpl">
+    <bean id="lookupManager" class="com.rstn.e2pc.service.impl.LookupManagerImpl">
         <property name="lookupDao" ref="lookupDao"/>
     </bean>
 
-    <bean id="userManager" class="com.ak.e2pc.service.impl.UserManagerImpl">
+    <bean id="userManager" class="com.rstn.e2pc.service.impl.UserManagerImpl">
         <property name="userDao" ref="userDao"/>
         <property name="passwordEncoder" ref="passwordEncoder"/>
     </bean>
 
-    <bean id="roleManager" class="com.ak.e2pc.service.impl.RoleManagerImpl">
+    <bean id="roleManager" class="com.rstn.e2pc.service.impl.RoleManagerImpl">
         <property name="roleDao" ref="roleDao"/>
     </bean>
 

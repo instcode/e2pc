@@ -7,6 +7,6 @@
     default-autowire="byName"
     default-lazy-init="true">
 
-    <bean id="loginService" class="com.ak.e2pc.service.LoginService"/>
+    <bean id="loginService" class="com.rstn.e2pc.service.LoginService"/>
 
 </beans>
