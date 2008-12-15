@@ -1,0 +1,70 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security-2.0.1.xsd">
+    
+    <http>
+        <http-basic/>
+        <logout/>
+    </http>
+
+	<authentication-provider user-service-ref="userDao">
+        <password-encoder ref="passwordEncoder"/>
+    </authentication-provider>
+    
+    <!-- Active Directory -->
+    <!--
+	<ldap-server
+		url="ldap://activedirectory:10389"
+		manager-dn="CN=My Service Account,OU=Accounts, DC=mindtheflex, DC=com"
+		manager-password="password"
+	/>
+	
+	<s:ldap-authentication-provider
+		user-search-base="OU=Accounts, DC=mindtheflex, DC=com"
+		user-search-filter="sAMAccountName={0}"
+		group-search-filter="member={0}"
+		group-role-attribute="cn"
+		group-search-base="OU=Groups, DC=mindtheflex, DC=com"
+		role-prefix="ROLE_"
+	/>
+	-->
+	
+	<!-- Apache Directory Service -->
+	<!--
+	<ldap-server id="ldapServer"
+        url="ldap://localhost:10389"
+        manager-dn="uid=admin,ou=system" manager-password="secret" />
+
+	<ldap-authentication-provider
+		user-search-filter="uid={0}" user-search-base="dc=example,dc=com"
+        group-search-filter="member={0}" group-search-base="ou=people,ou=groups"
+	/>
+	-->
+	<!-- Open Directory Service -->
+	 
+	<ldap-server id="ldapServer"
+        url="ldap://localhost:389/dc=example,dc=com"
+        manager-dn="cn=Directory Manager" manager-password="changeit" />
+
+    <authentication-provider>
+        <password-encoder hash="{sha}" />
+        <ldap-user-service server-ref="ldapServer"
+            user-search-filter="uid={0}" user-search-base="ou=people"
+            group-search-filter="member={0}" group-search-base="ou=groups"/>
+    </authentication-provider>
+        
+    <!-- Override the default password-encoder (SHA) by uncommenting the following and changing the class -->
+    <!-- <bean id="passwordEncoder" class="org.springframework.security.providers.encoding.ShaPasswordEncoder"/> -->
+
+    <global-method-security>
+    	<protect-pointcut expression="execution(* *..service.LoginService.getUser*(..))" access="ROLE_ADMIN,ROLE_USER"/>
+		<protect-pointcut expression="execution(* *..service.LoginService.getAdmin*(..))" access="ROLE_ADMIN"/>
+        <protect-pointcut expression="execution(* *..service.UserManager.getUsers(..))" access="ROLE_ADMIN"/>
+        <protect-pointcut expression="execution(* *..service.UserManager.removeUser(..))" access="ROLE_ADMIN"/>
+    </global-method-security>
+
+</beans:beans>
