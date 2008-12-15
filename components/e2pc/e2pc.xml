@@ -1,17 +1,36 @@
 <?xml version="1.0"?>
 <project name="e2pc" default="run" basedir=".">
 	<!-- Common variables -->
+	<property name="testng.report.dir" value="test-output"/>
 	<property environment="env"/>
 	<property name="webcontent.dir" value="WebContent"/>
 	<property name="webinf.dir" value="${webcontent.dir}/WEB-INF"/>
 	<property name="classes.dir" value="${webinf.dir}/classes"/>
 	<property name="lib.dir" value="${webinf.dir}/lib"/>
+	<property name="build.home" value="build-test"/>
+	<property name="src.home" value="test"/>
 
+	<path id="testng.cp">
+	   <pathelement location="${lib.dir}/testng-5.7-jdk15.jar"/>
+	 </path>
+
+	<taskdef name="testng" classpathref="testng.cp" classname="org.testng.TestNGAntTask" />
+	
 	<!-- Classpath -->
-	<path id="build.classpath">
+	<path id="build.cp">
+			<fileset dir="${lib.dir}/">
+				<include name="*.jar"/>
+			</fileset>
+			<pathelement location="${classes.dir}"/>
+			<pathelement location="${build.home}"/>
+	</path>
+	
+	<path id="run.cp">
 		<fileset dir="${lib.dir}/">
 			<include name="*.jar"/>
 		</fileset>
+		<pathelement location="${classes.dir}"/>
+		<pathelement location="${build.home}"/>
 	</path>
 
 	<!-- Targets -->
@@ -22,9 +41,33 @@
 		<echo message="* Version: ${build.version}"/>
 		<echo message="************************"/>
 	</target>
+	
+	<target name="clean" depends="init">
+		<delete dir="${build.home}" failonerror="no"/>
+	</target>
+	
+	<target name="build" depends="init">
+		<!-- Create build file structure -->
+		<mkdir dir="${build.home}"/>
+
+		<javac debug="${java.debug}" srcdir="${src.home}" destdir="${build.home}" debuglevel="lines,vars,source" target="1.5" nowarn="yes" optimize="on">
+			<classpath refid="build.cp" />
+			<src>
+				<path location="${src.home}"/>
+			</src>
+		</javac>
+
+		<copy todir="${build.home}">
+			<fileset dir="${src.home}" includes="**/*.xml"/>
+			<fileset dir="${src.home}" includes="**/*.properties"/>
+		</copy>
+	</target>
 
 	<!-- Clean build -->
-	<target name="run" depends="init">
+	<target name="run" depends="build">
+		<testng classpathref="run.cp" outputDir="${testng.report.dir}">
+			<xmlfileset dir="." includes="testng.xml" />
+		</testng>
 	</target>
 
 </project>

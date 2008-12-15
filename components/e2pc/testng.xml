@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="e2pc">
+  <test verbose="2" name="com.rstn.e2pc.dao.RoleDaoTest" annotations="JDK">
+    <classes>
+      <class name="com.rstn.e2pc.dao.RoleDaoTest"/>
+    </classes>
+  </test>
+  <test verbose="2" name="com.rstn.e2pc.dao.UserDaoTest" annotations="JDK">
+    <classes>
+      <class name="com.rstn.e2pc.dao.UserDaoTest"/>
+    </classes>
+  </test>
+</suite>
+
