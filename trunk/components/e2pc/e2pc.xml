@@ -44,6 +44,7 @@
 	
 	<target name="clean" depends="init">
 		<delete dir="${build.home}" failonerror="no"/>
+		<delete dir="${testng.report.dir}" failonerror="no"/>
 	</target>
 	
 	<target name="build" depends="init">
