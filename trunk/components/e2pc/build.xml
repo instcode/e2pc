@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<project name="e2pc" default="build" basedir=".">
+	<!-- Common variables -->
+	<property environment="env"/>
+	<property name="webcontent.dir" value="WebContent"/>
+	<property name="webinf.dir" value="${webcontent.dir}/WEB-INF"/>
+	<property name="classes.dir" value="${webinf.dir}/classes"/>
+	<property name="lib.dir" value="${webinf.dir}/lib"/>
+
+	<!-- Root Directories -->
+	<property name="build.properties" location="build.properties"/>
+	<property file="${build.properties}"/>
+	
+	<tstamp>
+		<format property="build.dstamp" pattern="yyyy.MM.dd - HH:mm:ss +7.00 "/>
+		<format property="source.dstamp" pattern="yyyy.MM.dd@HH.mm.ss"/>
+	</tstamp>
+	
+	<!-- Debug Flag -->
+	<condition property="java.debug" value="true">
+		<equals arg1="${build.type}" arg2="DEBUG" casesensitive="true"/>
+	</condition>
+	<property name="java.debug" value="false"/>
+
+	<!-- File locations -->
+	<property name="src.home" value="src"/>
+	<property name="res.home" value="res"/>
+	<patternset id="dest.exclude">
+		<exclude name="package cache/"/>
+		<exclude name="dependency cache/"/>
+	</patternset>
+	
+	<!-- Build locations -->
+	<property name="build.home" value="${classes.dir}"/>
+	<property name="dist.home" value="dist"/>
+	<property name="dist.war.file" value="e2pc.war"/>
+
+	<!-- Classpath -->
+	<path id="build.classpath">
+		<fileset dir="${lib.dir}/">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+
+	<!-- Targets -->
+	<target name="init">
+		<echo message="************************"/>
+		<echo message="* Project: ${ant.project.name}"/>
+		<echo message="* Version: ${build.version}"/>
+		<echo message="* Build Type: ${build.type}"/>
+		<echo message="************************"/>
+		<input message="Please enter the build version number:" addproperty="build.version" />
+	</target>
+
+	<!-- Clean build -->
+	<target name="clean" depends="init">
+		<delete dir="${build.home}" failonerror="no"/>
+	</target>
+
+	<target name="build" depends="init">
+		<!-- Create build file structure -->
+		<mkdir dir="${build.home}"/>
+		<mkdir dir="${dist.home}"/>
+
+		<javac debug="${java.debug}" srcdir="${src.home}" destdir="${build.home}" debuglevel="lines,vars,source" target="1.5" nowarn="yes" optimize="on">
+			<classpath refid="build.classpath" />
+			<src>
+				<path location="${src.home}"/>
+			</src>
+		</javac>
+
+		<copy todir="${build.home}">
+			<fileset dir="${src.home}" includes="**/*.xml"/>
+			<fileset dir="${src.home}" includes="**/*.properties"/>
+		</copy>
+	</target>
+		
+	<!-- Package WAR & applet jar file -->
+	<target name="package" depends="build">
+		<buildnumber file="build-number.properties"/>
+		
+		<!-- Web component -->
+		<war destfile="${dist.home}/${dist.war.file}" webxml="${webinf.dir}/web.xml">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Build-Version" value="${build.version}.${build.number}"/>
+				<attribute name="Build-Date" value="${build.dstamp}"/>
+			</manifest>
+			<fileset dir="${webcontent.dir}" includes="**" excludes="WEB-INF/**"/>
+			<fileset dir="${dist.home}" includes="*.jar"/>
+			<webinf dir="${webinf.dir}">
+			</webinf>
+		</war>
+	</target>
+
+	<target name="clean-deploy">
+		<delete dir="${deploy.home}" includes="*" failonerror="no"/>
+	</target>
+	
+	<target name="deploy">
+		<antcall target="clean-deploy"/>
+		<antcall target="deploy-sync"/>
+	</target>
+	
+	<target name="deploy-sync">
+		<copy preservelastmodified="yes" todir="${deploy.home}" failonerror="no">
+			<fileset dir="${webcontent.dir}">
+				<include name="**" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- Backup project for porting -->
+	<target name="zip-project-source">
+		<zip zipfile="${ant.project.name}-${source.dstamp}.zip">
+			<fileset dir=".">
+				<include name="**"/>
+				<exclude name="${build.home}/**"/>
+			</fileset>
+		</zip>
+	</target>
+</project>
