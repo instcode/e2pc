@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<project name="e2pc" default="run" basedir=".">
+	<!-- Common variables -->
+	<property environment="env"/>
+	<property name="webcontent.dir" value="WebContent"/>
+	<property name="webinf.dir" value="${webcontent.dir}/WEB-INF"/>
+	<property name="classes.dir" value="${webinf.dir}/classes"/>
+	<property name="lib.dir" value="${webinf.dir}/lib"/>
+
+	<!-- Classpath -->
+	<path id="build.classpath">
+		<fileset dir="${lib.dir}/">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+
+	<!-- Targets -->
+	<target name="init">
+		<echo message="************************"/>
+		<echo message="* Unit Testing"/>
+		<echo message="* Project: ${ant.project.name}"/>
+		<echo message="* Version: ${build.version}"/>
+		<echo message="************************"/>
+	</target>
+
+	<!-- Clean build -->
+	<target name="run" depends="init">
+	</target>
+
+</project>
