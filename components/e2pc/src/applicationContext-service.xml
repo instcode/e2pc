@@ -107,4 +107,5 @@
     </bean>
 
     <!-- Add new Managers here -->
+    <bean id="applicationContextProvider" class="com.rstn.e2pc.service.ApplicationContextProvider" lazy-init="false"></bean>
 </beans>

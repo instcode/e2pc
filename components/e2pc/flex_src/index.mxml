@@ -18,7 +18,7 @@
             import org.granite.events.SecurityEvent;
 
             [Bindable]
-            private var srv:SecureRemoteObject = null;
+            public var srv:SecureRemoteObject = null;
             
             [Bindable]
             public var remoteClassMsg:String = "";
@@ -28,6 +28,10 @@
                 srv.addEventListener(FaultEvent.FAULT, onRemoteFault);
                 srv.addEventListener(SecurityEvent.ALL, onSecurityEvent);
                 srv.showBusyCursor = true;
+            }
+            
+            public function getService(): SecureRemoteObject {
+            	return srv;
             }
             
             public function onUserDataResult(event:ResultEvent):void {
