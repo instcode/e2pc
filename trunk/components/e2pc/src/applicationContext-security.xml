@@ -18,54 +18,57 @@
     <!-- Active Directory -->
     <!--
 	<ldap-server
-		url="ldap://activedirectory:10389"
-		manager-dn="CN=My Service Account,OU=Accounts, DC=mindtheflex, DC=com"
+		url="ldap://example:389"
+		manager-dn="CN=My Service Account,OU=Accounts, DC=example, DC=com"
 		manager-password="password"
 	/>
 	
 	<s:ldap-authentication-provider
-		user-search-base="OU=Accounts, DC=mindtheflex, DC=com"
+		user-search-base="OU=Accounts, DC=example, DC=com"
 		user-search-filter="sAMAccountName={0}"
 		group-search-filter="member={0}"
 		group-role-attribute="cn"
-		group-search-base="OU=Groups, DC=mindtheflex, DC=com"
+		group-search-base="OU=Groups, DC=example, DC=com"
 		role-prefix="ROLE_"
 	/>
 	-->
 	
 	<!-- Apache Directory Service -->
-	<!--
+	<!-- -->
 	<ldap-server id="ldapServer"
         url="ldap://localhost:10389"
-        manager-dn="uid=admin,ou=system" manager-password="secret" />
+        manager-dn="uid=admin,ou=people,dc=example,dc=com" manager-password="secret" />
 
 	<ldap-authentication-provider
-		user-search-filter="uid={0}" user-search-base="dc=example,dc=com"
-        group-search-filter="member={0}" group-search-base="ou=people,ou=groups"
+		user-search-base="ou=people,dc=example,dc=com"
+		user-search-filter="uid={0}"
+		user-details-class="person"
+		group-search-base="ou=groups,dc=example,dc=com"
+		group-search-filter="member={0}"
+		group-role-attribute="cn"
+		role-prefix="ROLE_"
 	/>
-	-->
+	<!--  -->
 	<!-- Open Directory Service -->
-	 
+	<!-- 
 	<ldap-server id="ldapServer"
         url="ldap://localhost:389/dc=example,dc=com"
         manager-dn="cn=Directory Manager" manager-password="changeit" />
-
     <authentication-provider>
         <password-encoder hash="{sha}" />
         <ldap-user-service server-ref="ldapServer"
             user-search-filter="uid={0}" user-search-base="ou=people"
             group-search-filter="member={0}" group-search-base="ou=groups"/>
     </authentication-provider>
-        
+ 	-->        
     <!-- Override the default password-encoder (SHA) by uncommenting the following and changing the class -->
     <!-- <bean id="passwordEncoder" class="org.springframework.security.providers.encoding.ShaPasswordEncoder"/> -->
 
     <global-method-security>
-    	<protect-pointcut expression="execution(* *..service.LoginService.getUser*(..))" access="ROLE_ADMIN,ROLE_USER"/>
-		<protect-pointcut expression="execution(* *..service.LoginService.getAdmin*(..))" access="ROLE_ADMIN"/>
-		<protect-pointcut expression="execution(* *..service.LoginService.deleteUser*(..))" access="ROLE_ADMIN"/>
-		<protect-pointcut expression="execution(* *..service.LoginService.createUser*(..))" access="ROLE_ADMIN"/>
-        <protect-pointcut expression="execution(* *..service.UserManager.getUsers(..))" access="ROLE_ADMIN"/>
+    	<protect-pointcut expression="execution(* *..service.LoginService.getUsers(..))" access="ROLE_ADMIN,ROLE_USER"/>
+		<protect-pointcut expression="execution(* *..service.LoginService.deleteUser(..))" access="ROLE_ADMIN"/>
+		<protect-pointcut expression="execution(* *..service.LoginService.createUser(..))" access="ROLE_ADMIN"/>
+        <protect-pointcut expression="execution(* *..service.UserManager.getUsers(..))" access="ROLE_ADMIN,ROLE_USER"/>
         <protect-pointcut expression="execution(* *..service.UserManager.removeUser(..))" access="ROLE_ADMIN"/>
     </global-method-security>
 

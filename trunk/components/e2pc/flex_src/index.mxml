@@ -6,6 +6,7 @@
     			layout="vertical" initialize="init()">
     <mx:Script>
         <![CDATA[
+        	import mx.controls.List;
             import mx.controls.Alert;
             import mx.events.CloseEvent;
             import mx.rpc.events.ResultEvent;
@@ -13,6 +14,7 @@
             import mx.rpc.remoting.mxml.Operation;
             import mx.utils.ObjectUtil;
             import mx.utils.ObjectProxy;
+            import mx.collections.ArrayCollection; 
 
             import org.granite.rpc.remoting.mxml.SecureRemoteObject;
             import org.granite.events.SecurityEvent;
@@ -20,28 +22,13 @@
             [Bindable]
             public var srv:SecureRemoteObject = null;
             
-            [Bindable]
-            public var remoteClassMsg:String = "";
+            public var users:ArrayCollection = null;
 
             public function init():void {
                 srv = new SecureRemoteObject("login");
                 srv.addEventListener(FaultEvent.FAULT, onRemoteFault);
                 srv.addEventListener(SecurityEvent.ALL, onSecurityEvent);
                 srv.showBusyCursor = true;
-            }
-            
-            public function getService(): SecureRemoteObject {
-            	return srv;
-            }
-            
-            public function onUserDataResult(event:ResultEvent):void {
-                loginView.loggedIn = true;
-                remoteClassMsg = event.result.toString();
-            }
-            
-            public function onAdminDataResult(event:ResultEvent):void {
-                loginView.loggedIn = true;
-                remoteClassMsg = event.result.toString();
             }
 
             public function onSecurityEvent(event:SecurityEvent):void {
@@ -62,7 +49,7 @@
                     loginView.loggedIn = false;
                     break;
                 case SecurityEvent.ACCESS_DENIED:
-                    Alert.show("You don't have required rights to execute this action\n"+event);
+                    Alert.show("You don't have required rights to execute this action\n" + event);
                     break;
                 }
             }
@@ -72,35 +59,31 @@
                 	doLogout();
              	}
                 srv.setCredentials(username, password);
-                getUserStuff();
+                getUsers();
             }
             
             public function doLogout():void {
                 srv.logout();
                 loginView.loggedIn = false;
                 loginView.loginMessage = "";
-                remoteClassMsg = "";
             }
 
             private function onRemoteFault(event:FaultEvent):void {
                 trace(ObjectUtil.toString(event.fault));
                 Alert.show('Fault: ' + event.fault.faultCode + ' - ' + event.fault.faultString);
             }
-            
-            private function getUserStuff():void {
-                var operation:Operation = new Operation();
-                operation.name = "getUserData";
-                operation.addEventListener(ResultEvent.RESULT, onUserDataResult);
-                srv.operations = {getUserData: operation};
-                srv.getUserData();
+
+            private function onUsersResult(event:ResultEvent):void {
+                loginView.loggedIn = true;
+                users = event.result as ArrayCollection;
             }
-            
-            private function getAdminStuff():void {
+
+            private function getUsers():void {
                 var operation:Operation = new Operation();
-                operation.name = "getAdminData";
-                operation.addEventListener(ResultEvent.RESULT, onAdminDataResult);
-                srv.operations = {getAdminData: operation};
-                srv.getAdminData();
+                operation.name = "getUsers";
+                operation.addEventListener(ResultEvent.RESULT, onUsersResult);
+                srv.operations = {getUsers: operation};
+                srv.getUsers();
             }
         ]]>
     </mx:Script>

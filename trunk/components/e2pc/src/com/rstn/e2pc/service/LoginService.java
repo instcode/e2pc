@@ -1,5 +1,10 @@
 package com.rstn.e2pc.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.security.userdetails.UsernameNotFoundException;
 
 import com.rstn.e2pc.Constants;
@@ -8,12 +13,16 @@ import com.rstn.e2pc.model.User;
 
 
 public class LoginService {
-	public String getUserData() {
-		return "";
-	}
 
-	public String getAdminData() {
-		return "";
+	@SuppressWarnings("unchecked")
+	public List<String> getUsers() {
+		UserManager userManager = (UserManager) ApplicationContextProvider.getAppContext().getBean("userManager");
+		List<User> users = userManager.getUsers(new User());
+		List<String> names = new ArrayList<String>();
+		for (User user : users) {
+			names.add(user.getUsername());
+		}
+		return names;
 	}
 	
 	public String createUser(String login) {
