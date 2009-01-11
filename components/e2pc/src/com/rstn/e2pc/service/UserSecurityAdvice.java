@@ -18,6 +18,7 @@ import org.springframework.security.context.SecurityContext;
 import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
 import org.springframework.security.userdetails.UserDetails;
+import org.springframework.security.userdetails.ldap.LdapUserDetails;
 
 import com.rstn.e2pc.Constants;
 import com.rstn.e2pc.model.Role;
@@ -67,10 +68,10 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
             if (!signupUser) {
                 User currentUser = getCurrentUser(auth);
 
-                if (user.getId() != null && !user.getId().equals(currentUser.getId()) && !administrator) {
+                if (!administrator && user.getId() != null && !user.getId().equals(currentUser.getId())) {
                     log.warn("Access Denied: '" + currentUser.getUsername() + "' tried to modify '" + user.getUsername() + "'!");
                     throw new AccessDeniedException(ACCESS_DENIED);
-                } else if (user.getId() != null && user.getId().equals(currentUser.getId()) && !administrator) {
+                } else if (!administrator && user.getId() != null && user.getId().equals(currentUser.getId())) {
                     // get the list of roles the user is trying add
                     Set<String> userRoles = new HashSet<String>();
                     if (user.getRoles() != null) {
@@ -130,13 +131,26 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
     }
 
     private User getCurrentUser(Authentication auth) {
-        User currentUser;
+    	UserDetails userDetails;
         if (auth.getPrincipal() instanceof UserDetails) {
-            currentUser = (User) auth.getPrincipal();
+            userDetails = (UserDetails) auth.getPrincipal();
         } else if (auth.getDetails() instanceof UserDetails) {
-            currentUser = (User) auth.getDetails();
+            userDetails = (UserDetails) auth.getDetails();
         } else {
             throw new AccessDeniedException("User not properly authenticated.");
+        }
+        User currentUser = null;
+        if (userDetails instanceof User) {
+        	currentUser = (User) userDetails;
+        }
+        else if (userDetails instanceof LdapUserDetails) {
+        	currentUser = new User();
+        	currentUser.setUsername(userDetails.getUsername());
+        	// WARNING: This is a workaround and make sure all local users (in database)
+        	// have id other than '0' because id '0' indicates an LDAP user.
+        	// We might solve this issue completely by creating a permanent local user
+        	// for LDAP account during its first time login.
+        	currentUser.setId(Long.valueOf(0));
         }
         return currentUser;
     }
