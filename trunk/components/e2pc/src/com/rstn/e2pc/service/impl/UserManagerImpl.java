@@ -77,7 +77,7 @@ public class UserManagerImpl extends UniversalManagerImpl implements UserManager
                 passwordChanged = true;
             } else {
                 // Existing user, check password in DB
-                String currentPassword = dao.getUserPassword(user.getUsername());
+                String currentPassword = dao.getUserPasswordForId(user.getId());
                 if (currentPassword == null) {
                     passwordChanged = true;
                 } else {

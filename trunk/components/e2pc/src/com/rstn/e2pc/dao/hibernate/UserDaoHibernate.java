@@ -82,5 +82,13 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
                 "select password from " + table.name() + " where username=?", String.class, username);
 
     }
-    
+    public String getUserPasswordForId(String id) {
+		return getUserPasswordForId(Long.parseLong(id));
+	}
+
+	public String getUserPasswordForId(Long id) {
+		User u = get(id);
+		return u == null ? null : u.getPassword();
+	}
+
 }
