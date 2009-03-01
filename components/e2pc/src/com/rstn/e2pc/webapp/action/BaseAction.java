@@ -17,6 +17,7 @@ import org.springframework.mail.SimpleMailMessage;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rstn.e2pc.Constants;
 import com.rstn.e2pc.model.User;
+import com.rstn.e2pc.service.LoginService;
 import com.rstn.e2pc.service.MailEngine;
 import com.rstn.e2pc.service.RoleManager;
 import com.rstn.e2pc.service.UserManager;
@@ -77,6 +78,11 @@ public class BaseAction extends ActionSupport {
      * MailEngine for sending e-mail
      */
     protected MailEngine mailEngine;
+    
+    /**
+     * Login Service
+     */
+    protected LoginService loginService;
 
     /**
      * A message pre-populated with default data
@@ -206,4 +212,14 @@ public class BaseAction extends ActionSupport {
     public void setSave(String save) {
         this.save = save;
     }
+
+	public LoginService getLoginService() {
+		return loginService;
+	}
+
+	public void setLoginService(LoginService loginService) {
+		this.loginService = loginService;
+	}
+    
+    
 }
