@@ -107,12 +107,12 @@
     
     <filter-mapping>
       <filter-name>springSecurityFilterChain</filter-name>
-      <url-pattern>/*</url-pattern>
+      <url-pattern>/struts/*</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
         <filter-name>struts2</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/struts/*</url-pattern>
     </filter-mapping>
     <!-- Comment this part to support flex again -->
 </web-app>
