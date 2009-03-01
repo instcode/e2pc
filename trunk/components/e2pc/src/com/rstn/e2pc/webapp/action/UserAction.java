@@ -77,8 +77,9 @@ public class UserAction extends BaseAction implements Preparable {
      * @return success
      */
     public String delete() {
-        userManager.removeUser(user.getId().toString());
-        List<String> args = new ArrayList<String>();
+    	loginService.deleteUser(user.getUsername());
+
+    	List<String> args = new ArrayList<String>();
         args.add(user.getFullName());
         saveMessage(getText("user.deleted", args));
 
@@ -168,43 +169,7 @@ public class UserAction extends BaseAction implements Preparable {
     public String save() throws Exception {
         // only attempt to change roles if user is admin
         // for other users, prepare() method will handle populating
-        if (getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
-            user.getRoles().clear(); // APF-788: Removing roles from user doesn't work
-            String[] userRoles = getRequest().getParameterValues("userRoles");
-
-            for (int i = 0; userRoles != null && i < userRoles.length; i++) {
-                String roleName = userRoles[i];
-                user.addRole(roleManager.getRole(roleName));
-            }
-        }
-        
-        if (user.getId() == null) {
-			user.addRole(roleManager.getRole(Constants.USER_ROLE));
-        }
-        
-        user.setFirstName("Demo");
-		user.setLastName("Create");
-		user.setEmail(user.getUsername() + "@e2pc.com");
-		user.setWebsite("http://localhost:8080");
-        user.setPasswordHint("Password is password.");
-		user.setPassword("password");
-		user.setConfirmPassword("password");
-		
-		Address address = new Address();
-		address.setCity("Singapore");
-		address.setCountry("Singapore");
-		address.setAddress("Singapore");
-		address.setPostalCode("0");
-		address.setProvince("Singapore");
-		user.setAddress(address);
-		
-		user.setEnabled(true);
-		try {
-			userManager.saveUser(user);
-		} catch (UserExistsException e) {
-			e.printStackTrace();
-		}
-		
+        loginService.createUser(user.getUsername());
 		return SUCCESS;
     }
 

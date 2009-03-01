@@ -15,7 +15,7 @@
     <constant name="struts.enable.SlashesInActionNames" value="true"/>
 
     <!-- Configuration for the default package. -->
-    <package name="default" extends="struts-default">
+    <package name="default" extends="struts-default" namespace="/struts">
         <interceptors>
             <!-- Interceptor to handle allowing only admins to certain actions -->
             <interceptor name="adminOnly" class="adminInterceptor"/>
@@ -64,8 +64,16 @@
             <exception-mapping exception="org.springframework.dao.DataAccessException" result="dataAccessFailure"/>
         </global-exception-mappings>
 
+		<action name="index">
+            <result name="success">/WEB-INF/pages/index.jsp</result>
+        </action>
+
         <action name="mainMenu">
             <result name="success">/WEB-INF/pages/mainMenu.jsp</result>
+        </action>
+        
+        <action name="logout">
+            <result name="success">/WEB-INF/pages/logout.jsp</result>
         </action>
 
         <action name="editUser" class="userAction" method="edit">
@@ -89,7 +97,7 @@
     </package>
 
     <!-- Actions in this package will be prefixed with /admin/ -->
-    <package name="admin" extends="default" namespace="/admin">
+    <package name="admin" extends="default" namespace="/struts/admin">
         <action name="users" class="userAction" method="list">
             <interceptor-ref name="adminCheck"/>
             <result name="success">/WEB-INF/pages/admin/userList.jsp</result>
