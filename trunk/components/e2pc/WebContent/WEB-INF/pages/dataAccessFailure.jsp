@@ -1,4 +1,4 @@
-<%@ include file="/common/taglibs.jsp" %>
+<%@ include file="/struts/common/taglibs.jsp" %>
 
 <title>Data Access Error</title>
 
@@ -13,4 +13,4 @@ ex.printStackTrace(new java.io.PrintWriter(out));
 %>
 -->
 
-<a href="mainMenu.html" onclick="history.back();return false">&#171; Back</a>
+<a href="struts/mainMenu.html" onclick="history.back();return false">&#171; Back</a>

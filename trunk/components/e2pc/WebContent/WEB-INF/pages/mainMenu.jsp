@@ -1,4 +1,4 @@
-<%@ include file="/common/taglibs.jsp"%>
+<%@ include file="/struts/common/taglibs.jsp"%>
 
 <head>
     <title><fmt:message key="mainMenu.title"/></title>
@@ -13,9 +13,9 @@
 
 <ul class="glassList">
     <li>
-        <a href="<c:url value='/admin/users.html'/>"><fmt:message key="menu.admin.users"/></a>
+        <a href="<c:url value='/struts/admin/users.html'/>"><fmt:message key="menu.admin.users"/></a>
     </li>
     <li>
-    	<a href="<c:url value='/logout.jsp'/>"><fmt:message key="user.logout"/></a>
+    	<a href="<c:url value='/struts/logout.html'/>"><fmt:message key="user.logout"/></a>
     </li>
 </ul>
