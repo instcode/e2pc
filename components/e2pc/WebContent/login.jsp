@@ -1,8 +1,8 @@
-<%@ include file="/common/taglibs.jsp"%>
+<%@ include file="/struts/common/taglibs.jsp"%>
 
 <body id="login"/>
 
-<form method="post" id="loginForm" action="<c:url value='/j_security_check'/>"
+<form method="post" id="loginForm" action="<c:url value='/struts/j_security_check'/>"
     onsubmit="saveUsername(this);return validateForm(this)">
 <fieldset style="padding-bottom: 0">
 <ul>
